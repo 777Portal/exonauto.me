@@ -4,13 +4,6 @@ const session = require('express-session');
 
 const app = express();
 
-// for session stuff
-app.use(session({
-    secret: "sessionSecretKey", // Change this to a random secret key in config.json
-    resave: true,
-    saveUninitialized: true
-}));
-
 // for static stuff
 app.use('/assets', express.static('assets'))
 
