@@ -5,7 +5,7 @@ const session = require('express-session');
 const app = express();
 
 // for static stuff
-app.use('/assets', express.static('assets'))
+app.use(express.static('app/dist/'))
 
 // file stuff
 const fs = require('fs'); 
@@ -14,7 +14,7 @@ const { writeFile, readFile } = require('fs');
 // express reqs.
 app.get('/', (req, res) =>{
   console.log(req)
-  return res.sendFile('landingPage.html', { root: './views' });
+  return res.sendFile('index.html', { root: './app/dist/' });
 })
 
 const port = 3003

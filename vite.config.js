@@ -12,7 +12,7 @@ export default defineConfig({
     rollupOptions: {
       manifest: true,
       input: {
-        'main': 'index.html',
+        'main': '/index.html',
         'blog': '/pages/blog/index.html'
       },
       outDir: '/dist',
