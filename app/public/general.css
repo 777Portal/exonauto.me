@@ -1,0 +1,116 @@
+@supports (font-size-adjust: 1) {
+    .card {
+      font-size-adjust: 0.5;
+    }
+}
+  
+html {
+  scroll-behavior: smooth;
+}
+
+a { 
+  color: white;
+}
+
+main {
+  padding: 50px;
+}
+
+.socials img {
+  max-width: 100px;
+  height: auto;
+}
+
+nav {
+  border: 1px solid rgba(255, 255, 255, 0.125);
+
+  color: #fff;
+  padding: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav img:hover{
+  animation: rotate360 1s linear infinite;
+}
+
+.logo-container {
+  display: inline-block;
+  align-items: center;
+}
+
+.logo-container img {
+  float: left;
+}
+
+img {
+  border-radius: 12px;
+}
+
+@keyframes bouncy {
+  0%{top:0em}
+  40%{top:0em}
+  43%{top:-0.9em}
+  46%{top:0em}
+  48%{top:-0.4em}
+  50%{top:0em}
+  100%{top:0em;}
+}
+  
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  
+  @keyframes rotate360 {
+    to { transform: rotate(360deg);}           
+  }
+  
+/* Responsive styles */
+@media only screen and (min-width: 768px) {
+    section {
+      display: flex;
+    }
+      
+    main {
+      flex: 1;
+    }
+  }
+
+  
+  @media (max-width: 768px) {
+    .card {
+      width:45%;
+    }
+    .nav{
+      display: block;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card {
+      width: 100%;
+      float: none;
+      margin-left: auto;
+      margin-right: auto;  
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
