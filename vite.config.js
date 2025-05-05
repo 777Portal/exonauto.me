@@ -13,7 +13,8 @@ export default defineConfig({
       manifest: true,
       input: {
         'main': '/index.html',
-        'blog': '/pages/blog/index.html'
+        'blog': '/pages/blog/index.html',
+        'panel': '/pages/panel/index.html'
       },
       outDir: '/dist',
     },
