@@ -34,19 +34,21 @@ app.get('/blog', (req, res) => {
 app.get('/verify', async (req, res) => {
   let password = req.query.password;
   if (!password) return res.status(400).redirect('/');
-
-  if (await argon2.verify(process.env.HASH, password)) {
+  
+  let verified = await argon2.verify(process.env.HASH, password);
+  
+  if (verified) {
     req.session.authed = true;
-    return res.status(200).redirect('/');
-  } else {
-    return res.status(401).redirect('/');
   }
+
+  return res.status(verified ? 200: 401).redirect('/');
 })
 
 const authentication = (req, res, next) => {
-  // console.log("Authed? "+req.session.authed)
-  if (!req.session.authed) return res.status(401).redirect('/');
-
+  if (!req.session.authed) {
+    return res.status(401).redirect('/');
+  }
+  
   next();
 }
 
