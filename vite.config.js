@@ -14,6 +14,8 @@ export default defineConfig({
       input: {
         'main': '/index.html',
         'blog': '/pages/blog/index.html',
+        'blogTemplate': '/pages/blog/template.html',
+        'echo': '/pages/echo/index.html',
         'panel': '/pages/panel/index.html'
       },
       outDir: '/dist',

@@ -1,0 +1,7 @@
+{
+    "UUID2": {
+        "title":"I finished the blog",
+        "headline":"I, ExonAuto, have finally finished writing the blog code",
+        "content":"<h3>Hello!</h3><p>I finally got around to doing the blogs stuff!</p><p>its probably a bit scuffed, but I plan on redoing the entire frontend in vue because doing stuff is super annoying w/ vanilla js / html and it would be nice to learn</p><p>So, enjoy it while it lasts! And thanks for taking the time to read this!</p>"
+    }
+}

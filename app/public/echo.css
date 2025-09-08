@@ -1,0 +1,145 @@
+input {
+    width: 100%;
+    height: 100%;
+    
+    color: #979797;
+    background-color: black;
+    
+    height: 28px;
+    
+    padding-left: 10px;
+    
+    text-decoration: none;
+    
+    background-repeat: repeat-x;
+    
+    border-radius: 5px;
+    border: 0;
+}
+  
+html {
+    font-size: 12px;
+
+    font-family: "Courier New";
+
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle, #ffffff 1px, rgb(0, 0, 0) 1px);
+}
+
+@media screen and (min-width: 32rem) and (max-width: 48rem) {
+    html {
+      font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 48rem) {
+    html {
+      font-size: 16px;
+    }
+}
+
+body {
+    line-height: 1.85;
+}
+
+body {
+    color: white;
+    
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid rgb(255, 255, 255);  
+}
+
+
+.blogSelection {
+    padding: 50px;
+    border: 2px solid rgb(88, 88, 88);  
+}
+
+blog {
+    display: relative;
+}
+
+.body div {
+    border: 2px solid rgb(96 139 168);
+    border-radius: 5px;
+    background-color: rgb(96 139 168 / 0.2);  
+    
+    color: #fafafa;
+    font-family: "Courier New";
+    line-height: 1.45;
+    margin: 6rem auto 1rem;
+    max-width: 48rem;
+    padding: .25rem;  
+}
+
+.true {
+    padding: 50px;
+    text-align: center;
+}
+
+.centertext{
+    text-align: center;
+}
+
+.content {
+    text-align: left;
+}
+
+/* CSS, i took from https://getcssscan.com/css-buttons-examples :3 */
+.button-28 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+.pulses {
+    display: flex;
+    text-align: center;
+}
