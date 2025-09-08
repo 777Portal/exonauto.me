@@ -1,10 +1,17 @@
-require('dotenv').config();
+import "dotenv/config.js";
 
-const path = require("path");
+import path from 'path';
+
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 // express stuff
-const express = require('express');
-const session = require('express-session');
+import express from 'express';
+import session from 'express-session';
+
 const app = express();
 
 app.use(session({
@@ -14,13 +21,13 @@ app.use(session({
 }));
 
 // security stuff
-const argon2 = require('argon2');
+import argon2 from 'argon2';
 
 // for static stuff
 app.use(express.static('app/dist/'))
 
 // file stuff
-const fs = require('fs').promises
+import { promises as fs } from 'fs';
 
 const authentication = (req, res, next) => {
   if (!req.session.authed) {
@@ -48,6 +55,7 @@ app.get('/blog/:id', async (req, res) => {
     let template = await fs.readFile(templatePath, 'utf8');
 
     template = template
+      .replaceAll('{{image}}', "generateImage()")
       .replaceAll('{{title}}', blog.title)
       .replaceAll('{{headline}}', blog.title)
       .replaceAll('{{content}}', blog.content);
@@ -69,10 +77,11 @@ app.get('/verify', async (req, res) => {
     req.session.authed = true;
   }
 
-  return res.status(verified ? 200: 401).redirect('/');
+  return res.status(verified ? 200: 401).redirect('/admin/panel');
 })
 
-app.get('/admin/panel', authentication, (req, res) => {
+app.get('/admin/panel', authentication, (req, res
+  ) => {
   return res.sendFile('index.html', { root: './app/dist/pages/panel/' });
 })
 
