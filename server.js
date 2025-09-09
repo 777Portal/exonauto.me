@@ -4,9 +4,13 @@ import path from 'path';
 
 import {fileURLToPath} from 'url';
 
+import satori from "satori";
+import { html } from "satori-html";
+
+import { Resvg } from "@resvg/resvg-js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 // express stuff
 import express from 'express';
@@ -25,6 +29,7 @@ import argon2 from 'argon2';
 
 // for static stuff
 app.use(express.static('app/dist/'))
+app.use(express.static('generated/'))
 
 // file stuff
 import { promises as fs } from 'fs';
@@ -55,9 +60,9 @@ app.get('/blog/:id', async (req, res) => {
     let template = await fs.readFile(templatePath, 'utf8');
 
     template = template
-      .replaceAll('{{image}}', "generateImage()")
+      .replaceAll('{{image}}', req.params.id)
       .replaceAll('{{title}}', blog.title)
-      .replaceAll('{{headline}}', blog.title)
+      .replaceAll('{{headline}}', blog.headline)
       .replaceAll('{{content}}', blog.content);
 
     res.send(template);
@@ -97,7 +102,13 @@ async function initBlogJson() {
   try {
     const data = await fs.readFile(filePath, 'utf8');
     blogs = JSON.parse(data);
+    
+    for (let blog in blogs) {
+      generateImage(blog); // placeholder - will generate only once, once i set up the api for creating blogs from the dashboard.
+    }
+
     console.log(blogs)
+    
     return blogs;
   } catch (err) {
     console.error("Error reading blogs:", err);
@@ -112,6 +123,51 @@ async function saveBlogs() {
   } catch (err) {
     console.error('Error writing file:', err);
   }
+}
+
+async function generateImage(uuid){
+  const templatePath = path.join(__dirname, 'app/dist/pages/blog/templateImage.html');
+
+  console.log(blogs)
+  let blog = blogs[uuid]
+
+  let template = await fs.readFile(templatePath, 'utf8');
+
+  template = template
+    .replaceAll('{{image}}', uuid)
+    .replaceAll('{{title}}', blog.title)
+    .replaceAll('{{headline}}', blog.headline)
+    .replaceAll('{{content}}', blog.content);
+
+  const markup = html(template);
+
+  const fontData = await fs.readFile(
+    "/System/Library/Fonts/Supplemental/Arial.ttf"
+  );
+  
+  // See https://github.com/vercel/satori#documentation
+  const svg = await satori(markup, {
+    width: 1200,
+    height: 628,
+    fonts: [
+      {
+        name: "Arial",
+        data: fontData,
+        weight: "auto",
+        style: "normal",
+      },
+    ],
+
+  });
+
+  
+  const resvg = new Resvg(svg, {
+    background: "rgba(255, 255, 255, 1)", // optional
+  });
+  
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+  fs.writeFile("./generated/blogs" + uuid + ".png", pngBuffer)
 }
 
 initBlogJson();

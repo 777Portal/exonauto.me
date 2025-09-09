@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 1200px;
+    height: 628px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    background-image: radial-gradient(circle, #ffffff 1px, black 1px);
+    background-size: 40px 40px;
+    color: white;
+    font-family: sans-serif;
+    margin: 0 auto;
+}
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+.container img {
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+}
+.text {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    flex-grow: 1;
+    justify-content: center;
+}
+.text h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+.text p {
+    font-size: 24px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="https://cataas.com/cat?type=square" alt="Random Cat">
+    <div class="text">
+        <h1>{{title}}</h1>
+        <hr>
+        <p>{{headline}}</p>
+    </div>
+</div>
+</body>
+</html>

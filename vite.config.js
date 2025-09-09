@@ -15,6 +15,7 @@ export default defineConfig({
         'main': '/index.html',
         'blog': '/pages/blog/index.html',
         'blogTemplate': '/pages/blog/template.html',
+        'blogImageTemplate': '/pages/blog/templateImage.html',
         'echo': '/pages/echo/index.html',
         'panel': '/pages/panel/index.html'
       },
