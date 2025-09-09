@@ -142,7 +142,7 @@ async function generateImage(uuid){
   const markup = html(template);
 
   const fontData = await fs.readFile(
-    "/System/Library/Fonts/Supplemental/Arial.ttf"
+    "VictorMono-Regular.ttf"
   );
   
   // See https://github.com/vercel/satori#documentation
