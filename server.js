@@ -47,9 +47,37 @@ app.get('/', (req, res) =>{
   return res.sendFile('index.html', { root: './app/dist/' });
 })
 
-app.get('/blog', (req, res) => {
-  return res.sendFile('index.html', { root: './app/dist/pages/blog' });
-})
+// to do - store cache of html, dynamically update when new blog post?
+app.get('/blog', async (req, res) => {
+  try {
+    const templatePath = path.join(__dirname, 'app/dist/pages/blog/index.html');
+    let html = await fs.readFile(templatePath, 'utf8');
+
+    let blogsHtml = "";
+    const blogIDs = Object.keys(blogs).reverse(); 
+
+    for (let blogID in blogIDs) {
+      blogID = blogIDs[blogID]
+
+      const blog = blogs[blogID]
+      blogsHtml += `
+        <div id="${blogID}" class="blogSelection">
+          <a href="/blog/${blogID}" style="cursor:pointer">${blog.title}</a>
+          <hr>
+          <p>${blog.headline}</p>
+        </div>
+      `;
+    }
+
+    html = html.replace("{{blogs}}", blogsHtml);
+
+    res.send(html);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error when rendering blog :(");
+  }
+});
+
 
 app.get('/blog/:id', async (req, res) => {
   const blog = blogs[req.params.id];
@@ -145,7 +173,6 @@ async function generateImage(uuid){
     "VictorMono-Regular.ttf"
   );
   
-  // See https://github.com/vercel/satori#documentation
   const svg = await satori(markup, {
     width: 1200,
     height: 628,
