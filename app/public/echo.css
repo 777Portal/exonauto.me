@@ -143,3 +143,12 @@ canvas {
     display: flex;
     text-align: center;
 }
+
+.callout-info {
+    background-color: #e0f2f7;
+    border-left: 5px solid #2196f3;
+    color: #1A1A1A;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 3px;
+}
