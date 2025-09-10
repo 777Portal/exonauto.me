@@ -132,7 +132,8 @@ async function initBlogJson() {
     blogs = JSON.parse(data);
     
     for (let blog in blogs) {
-      generateImage(blog); // placeholder - will generate only once, once i set up the api for creating blogs from the dashboard.
+      // todo - only generate once - when new blog post.
+      generateImage(blog); 
     }
 
     console.log(blogs)
@@ -189,7 +190,7 @@ async function generateImage(uuid){
 
   
   const resvg = new Resvg(svg, {
-    background: "rgba(255, 255, 255, 1)", // optional
+    background: "rgba(255, 255, 255, 1)",
   });
   
   const pngData = resvg.render();
