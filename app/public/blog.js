@@ -36,7 +36,7 @@ async function listBlogs(){
         let p = createElm('p', blog.headline);
         blogHolder.appendChild(p);
 
-        holder.appendChild(blogHolder);
+        holder.prepend(blogHolder);
     }
 
 }
