@@ -18,6 +18,9 @@ import session from 'express-session';
 
 const app = express();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -118,26 +121,41 @@ app.get('/admin/panel', authentication, (req, res
   return res.sendFile('index.html', { root: './app/dist/pages/panel/' });
 })
 
-app.get('/api/blogs', (req, res) => {
+app.get('/api/blogs', authentication, (req, res) => {
   res.json(blogs)
 })
 
-const filePath = 'blogs.json';
+app.post('/api/blog/post', authentication, async (req, res) => {
+  const blogInfo = req.body;
+  const {title, key, headline, content} = blogInfo;
+  if (!title || !headline || !key || !content) return res.status(400).json( { error:"malformed content :(" } )
+  
+  try { 
+    // ig theorically that means you can also update the blog like this cuz it overwrites the blog entry
+    // make it client side?
+    // openEditor() or smth similar to overwrite manaco's content with the content of an existing blog entry
+    blogs[ key ] = blogInfo;
+    generateImage(key);
+    saveBlogs();
+    
+    res.send({
+      message: blogInfo,
+    });
 
+  } catch (error) {
+    console.warn(error);
+    res.status(500).json( { "error":"whoops! internal server error!" } )
+  }
+})
+
+const filePath = 'blogs.json';
 let blogs;
 
 async function initBlogJson() {
   try {
     const data = await fs.readFile(filePath, 'utf8');
     blogs = JSON.parse(data);
-    
-    for (let blog in blogs) {
-      // todo - only generate once - when new blog post.
-      generateImage(blog); 
-    }
-
-    console.log(blogs)
-    
+        
     return blogs;
   } catch (err) {
     console.error("Error reading blogs:", err);
@@ -147,23 +165,27 @@ async function initBlogJson() {
 
 async function saveBlogs() {
   try {
-    const json = JSON.stringify(users);
-    await fs.writeFile(filePath, json, 'utf8');
+    const json = JSON.stringify(blogs);
+    const tempFilePath = `${filePath}.tmp_${Date.now()}`;
+    
+    await fs.writeFile(tempFilePath, data, 'utf8');
+    await fs.rename(tempFilePath, filePath);
   } catch (err) {
     console.error('Error writing file:', err);
   }
 }
 
-async function generateImage(uuid){
+async function generateImage(key){
   const templatePath = path.join(__dirname, 'app/dist/pages/blog/templateImage.html');
 
   console.log(blogs)
-  let blog = blogs[uuid]
+  let blog = blogs[key]
+  console.log(blog)
 
   let template = await fs.readFile(templatePath, 'utf8');
 
   template = template
-    .replaceAll('{{image}}', uuid)
+    .replaceAll('{{image}}', key)
     .replaceAll('{{title}}', blog.title)
     .replaceAll('{{headline}}', blog.headline)
     .replaceAll('{{content}}', blog.content);
@@ -195,7 +217,7 @@ async function generateImage(uuid){
   
   const pngData = resvg.render();
   const pngBuffer = pngData.asPng();
-  fs.writeFile("./generated/blogs" + uuid + ".png", pngBuffer)
+  fs.writeFile("./generated/blogs" + key + ".png", pngBuffer)
 }
 
 initBlogJson();
