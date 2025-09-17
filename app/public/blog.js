@@ -8,16 +8,16 @@ async function fetchBlogs(){
 
 async function listBlogs(){
     let blogs = await fetchBlogs();
-    let holder = document.getElementById('blogMain');
+    let holder = document.getElementById('blogs');
 
     holder.innerHTML = "";
     
-    for (let blogUUID in blogs) {
-        let blog = blogs[blogUUID];
+    for (let blogKey in blogs) {
+        let blog = blogs[blogKey];
         console.log(blog);
 
         let blogHolder = createElm('div');
-        blogHolder.id = blogUUID;
+        blogHolder.id = blogKey;
         blogHolder.classList = "blogSelection"
 
         const h1 = document.createElement("a");
@@ -25,7 +25,7 @@ async function listBlogs(){
         h1.style.cursor = "pointer";
         
         h1.addEventListener("click", () => {
-            window.location.href = "./blog/" + blogUUID;
+            editBlog(blog, blogKey);
         });
 
         blogHolder.appendChild(h1);

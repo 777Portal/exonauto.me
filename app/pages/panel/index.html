@@ -33,10 +33,12 @@
 
       <main>
         <div style="text-align: center; margin-bottom: 100px;">
-          <h3>server status</h3>
+          <h3>Current blogs</h3>
           <hr>
           <br>
-          <p>Coming soon</p>
+          <div id="blogs">
+
+          </div>
         </div>
       </main>
     </section>
@@ -96,6 +98,11 @@
             width: editorElement.offsetWidth,
             height: editorElement.offsetHeight
         }));
+        
+        window.editBlog = async function (json, blogKey) {
+          const {key, headline, title, content} = json;
+          editor.getModel().setValue(`<!-- \n ${title} \n ${blogKey} \n ${headline} \n -->\n ${content}`);
+        }
     });
 
     async function postBlog(title, key, headline, content) {
@@ -111,6 +118,7 @@
       const res = await rawResponse.json();
       console.log(res);
     }
-    </script>    
+    </script>
+    <script src="/blog.js"></script>
   </body>
 </html>
