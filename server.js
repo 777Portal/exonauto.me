@@ -155,7 +155,7 @@ async function initBlogJson() {
   try {
     const data = await fs.readFile(filePath, 'utf8');
     blogs = JSON.parse(data);
-        
+
     return blogs;
   } catch (err) {
     console.error("Error reading blogs:", err);

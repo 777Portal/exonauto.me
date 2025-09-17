@@ -48,6 +48,33 @@ img {
   border-radius: 12px;
 }
 
+.overlayWrap {
+  position: fixed;
+  display: none;
+  top:0; 
+  right:0; 
+  bottom:0; 
+  left:0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 99;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#overlay {
+  width: 80%;
+  height: 80%;
+  border: none;
+  background: white;
+  cursor: default;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border-radius: 8px;
+}
+
+
 @keyframes bouncy {
   0%{top:0em}
   40%{top:0em}
