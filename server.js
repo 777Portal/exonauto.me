@@ -27,14 +27,11 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// security stuff
 import argon2 from 'argon2';
 
-// for static stuff
 app.use(express.static('app/dist/'))
 app.use(express.static('generated/'))
 
-// file stuff
 import { promises as fs } from 'fs';
 
 const authentication = (req, res, next) => {
@@ -119,6 +116,11 @@ app.get('/verify', async (req, res) => {
 app.get('/admin/panel', authentication, (req, res
   ) => {
   return res.sendFile('index.html', { root: './app/dist/pages/panel/' });
+})
+
+app.get('/pulse', (req, res
+  ) => {
+  return res.sendFile('index.html', { root: './app/dist/pages/echo/' });
 })
 
 app.get('/api/blogs', authentication, (req, res) => {
