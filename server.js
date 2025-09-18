@@ -4,17 +4,18 @@ import path from 'path';
 
 import {fileURLToPath} from 'url';
 
+import express from 'express';
+import session from 'express-session';
+
 import satori from "satori";
 import { html } from "satori-html";
-
 import { Resvg } from "@resvg/resvg-js";
+
+import argon2 from 'argon2';
+import { promises as fs } from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// express stuff
-import express from 'express';
-import session from 'express-session';
 
 const app = express();
 
@@ -27,12 +28,8 @@ app.use(session({
   saveUninitialized: false
 }));
 
-import argon2 from 'argon2';
-
 app.use(express.static('app/dist/'))
 app.use(express.static('generated/'))
-
-import { promises as fs } from 'fs';
 
 const authentication = (req, res, next) => {
   if (!req.session.authed) {
