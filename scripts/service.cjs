@@ -4,7 +4,7 @@ const path = require('path');
 const serviceFilePath = '/etc/systemd/system/exonauto.service';
 
 const workingDir = path.dirname(__dirname);
-const execStartPath = path.join(workingDir, 'server.js');
+const execStartPath = path.join(workingDir, 'src/server.js');
 
 const exec = require('child_process').exec;
 
